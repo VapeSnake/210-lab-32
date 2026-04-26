@@ -28,7 +28,35 @@ int main() {
     int time = 1; // Time counter to compare to MAX_PERIODS.
     while (time <= MAX_PERIODS) { // Loop repeats 20 times.
         cout << "\nTime: " << time << "\n"; // Print the current time period at the start of each loop iteration.
-        
+        // First For loop will handle 50/50 chance car leaves. Second For loop will display queues of each lane.
+        for (int i = 0; i < MAX_LANES; i++) {
+            if (rand() % 2 == 0) { // 50% chance car joins.
+                Lanes[i].push_back(Car()); // Adds new car to back of lane.
+                cout << "Lane " << i + 1 << " Joined: "; // Print which lane a car joined.
+                cout << "   ";
+                Lanes[i].back().print(); // Print the car that just joined the lane.
+            }
+            else if (!Lanes[i].empty()) { // 50% chance car leaves, but only if lane is not empty.
+                cout << "Lane " << i + 1 << " Paid: "; // Print which lane a car paid and left.
+                cout << "   ";
+                Lanes[i].front().print(); // Print the car that is about to leave the lane.
+                Lanes[i].pop_front(); // Remove the first car from the lane as it has been processed.
+            }
+        }
+        for (int i = 0; i < MAX_LANES; i++) { // Display the current state of each lane after processing joins/leaves.
+            cout << "Lane " << i + 1 << " Queue:\n"; // Print the lane number before listing cars in that lane.
+            for (auto & car: Lanes[i]) {
+                if (Lanes[i].empty()) { // If lane is empty, print that it is empty and skip to next lane.
+                    cout << "   empty.\n";
+                    break;
+                }
+                cout << "   "; // Indent car details for better readability.
+                car.print(); // Print each car currently in the lane.
+            }
+        }
+        time++; // Increment time after all lanes have had a chance to add a car.
+    }
+}
 
     /*
     int time = 1; // Time counter to simulate time periods at toll booth.
