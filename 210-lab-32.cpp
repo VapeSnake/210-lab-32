@@ -14,51 +14,19 @@ int main() {
     srand(time(0)); // Seed the random number generator. Now Car objects are randomly generated.
     // Create an array to hold deques of car objects to simulate 4 lanes.
     array <deque<Car>, MAX_LANES> Lanes;
+    cout << "Initial queue:\n"; // Print the initial state of the toll booth before any cars are added.
     for (int i = 0; i < MAX_LANES; i++) { // Outer loop iterates through each lane.
         for (int j = 0; j < START_CARS; j++) {
             Lanes[i].push_back(Car()); // Add START_CARS number of cars to each lane at the start of the program.
         }
-        cout << "Initial state of lane " << i + 1 << ":\n"; // Print the initial state of each lane after adding cars.
+        cout << "Lane " << i + 1 << ":\n"; // Print the initial state of each lane after adding cars.
         for (auto & car: Lanes[i]) {
             car.print(); // Print each car in the lane.
         }
     }
-    cout << endl;
-    cout << "--- TESTING DEQUE OPERATIONS ---\n";
-    cout << "Peeking at the front and back of lane 1:\n";
-    Lanes[0].front().print(); // Peek at the first car in lane 1.
-    cout << "Peeking at the back of lane 1:\n";
-    Lanes[0].back().print(); // Peek at the last car in lane
-    cout << "Adding a new car to lane 1:\n";
-    Lanes[0].push_back(Car()); // Add a new car to the back of lane 1.
-    for (auto & car: Lanes[0]) {
-        car.print(); // Print the current state of lane 1 after adding a new car.
-    }
-    cout << "Processing a car from lane 1:\n";
-    Lanes[0].pop_front(); // Remove the first car from lane 1 as it has been processed.
-    for (auto & car: Lanes[0]) {
-        car.print(); // Print the current state of lane 1 after processing a car.
-    }
-    cout << endl;
-    cout << "ADDING CARS TO EACH LANE" << endl;
-    for (int i = 0; i < MAX_LANES; i++) {
-        Lanes[i].push_back(Car()); // Add a new car to the back of each lane.
-        cout << "Added a new car to lane " << i + 1 << ":\n";
-        for (auto & car: Lanes[i]) {
-            car.print(); // Print the current state of each lane after adding a new car.
-        }
-    }
-    cout << endl;
-    cout << "PROCESSING CARS FROM EACH LANE" << endl;
-    for (int i = 0; i < MAX_LANES; i++) {
-        cout << "Processing a car from lane " << i + 1 << ":\n";
-        Lanes[i].pop_front(); // Remove the first car from each lane as it has been processed.
-        for (auto & car: Lanes[i]) {
-            car.print(); // Print the current state of each lane after processing a car.
-        }
-    }
-    cout << endl;
-    
+
+
+
     /*
     int time = 1; // Time counter to simulate time periods at toll booth.
     while (!Cars.empty()) { // Loop continues until the toll has no cars left in line using .empty() method.
