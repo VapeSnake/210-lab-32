@@ -55,8 +55,16 @@ int main() {
                     cout << "Lane " << i + 1 << " Switched to Lane " << switchLane + 1 << ": "; // Print which lane a car switched from.
                     cout << "   ";
                     Lanes[switchLane].back().print(); // Print the car that just switched lanes.
-                } else {
-                    cout << "Lane " << i + 1 << " Empty\n"; // Print message if lane is empty and cannot switch lanes.
+                } else { // 50/50 chance car joins.
+                    if (rand() % 2 == 0) {
+                        Lanes[i].push_back(Car()); // Adds new car to back of lane.
+                        cout << "Lane " << i + 1 << " Joined: "; // Print which lane a car joined.
+                        cout << "   ";
+                        Lanes[i].back().print(); // Print the car that just joined the lane.
+                    }
+                    else {
+                        cout << "Lane " << i + 1 << " Empty" << endl;
+                    }
                 }
             }
         }
