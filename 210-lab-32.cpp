@@ -19,7 +19,7 @@ int main()
     for (int i = 0; i < MAX_LANES; i++)
     { // Outer loop iterates through each lane.
         for (int j = 0; j < START_CARS; j++)
-        {
+        { // Inner loop adds START_CARS number of cars to each lane at the start of the program.
             Lanes[i].push_back(Car()); // Add START_CARS number of cars to each lane at the start of the program.
         }
         cout << "Lane " << i + 1 << ":\n"; // Print the initial state of each lane after adding cars.
@@ -28,7 +28,6 @@ int main()
             car.print(); // Print each car in the lane.
         }
     }
-    // Milestone 4: Only coding 50/50 probability of car joining/leaving for all lanes.
     int time = 1; // Time counter to compare to MAX_PERIODS.
     while (time <= MAX_PERIODS)
     {                                       // Loop repeats 20 times.
@@ -37,7 +36,7 @@ int main()
         for (int i = 0; i < MAX_LANES; i++)
         {
             int randomNum = rand() % 100; // Generate a random number between 0 and 99 to determine if a car joins, leaves, or switches lanes.
-            if (randomNum < 46) // 46% chance car joins.
+            if (randomNum < 46)           // 46% chance car joins.
             {
                 Lanes[i].push_back(Car());               // Adds new car to back of lane.
                 cout << "Lane " << i + 1 << " Joined: "; // Print which lane a car joined.
@@ -54,34 +53,37 @@ int main()
             else // 15% chance car switches to a different lane.
             {
                 int switchLane = rand() % MAX_LANES; // Randomly select a lane from 1 to 4 for the car to switch to.
-                while (switchLane == i || Lanes[i].empty()) //BUG: Infinite loop if lane is empty.
-                { // This loop ensures that car doesn't switch to same lane and checks if current lane has cars to be able to switch lanes.
-                    switchLane = rand() % MAX_LANES; // Changes switchLane to new random lane until a switch is available.
+                if (!Lanes[i].empty())               // Bug fix: Checks first if current lane is empty before trying to switch. Skips if there are no cars to switch.
+                {
+                    while (switchLane == i)
+                    {                                    // This loop ensures that car doesn't switch to same lane and checks if current lane has cars to be able to switch lanes.
+                        switchLane = rand() % MAX_LANES; // Changes switchLane to new random lane until a switch is available.
+                    }
+                    cout << "Lane: " << i + 1 << " Switched: "; // Print which lane a car switched from.
+                    cout << "   ";
+                    Lanes[i].front().print();                      // Print the car that is about to switch lanes.
+                    Lanes[switchLane].push_back(Lanes[i].front()); // Add the car that is switching to the back of the new lane.
+                    Lanes[i].pop_front();                          // Remove the car from the original lane as it has switched to a new lane.
                 }
-                cout << "Lane: " << i + 1 << " Switched: "; // Print which lane a car switched from.
-                cout << "   ";                Lanes[i].front().print(); // Print the car that is about to switch lanes.
-                Lanes[switchLane].push_back(Lanes[i].front()); // Add the car that is switching to the back of the new lane.
-                Lanes[i].pop_front(); // Remove the car from the original lane as it has switched to a new lane.
             }
         }
         for (int i = 0; i < MAX_LANES; i++)
-        {                                            // Display the current state of each lane after processing joins/leaves.
+        {                                          // Display the current state of each lane after processing joins/leaves.
             cout << "Lane " << i + 1 << " Queue:"; // Print the lane number before listing cars in that lane.
             if (Lanes[i].empty())
             { // If lane is empty, print that it is empty and skip to next lane.
                 cout << " empty.\n";
             }
             else
-            { // If lane is not empty, print each car in the lane.
+            {                 // If lane is not empty, print each car in the lane.
                 cout << "\n"; // New line for better readability before listing cars in the lane.
                 for (auto &car : Lanes[i])
                 {
-
                     cout << "   "; // Indent car details for better readability.
                     car.print();   // Print each car currently in the lane.
                 }
             }
         }
-        time++; // Increment time after all lanes have had a chance to add a car.
+        time++; // Increment time counter at the end of each loop iteration.
     }
 }
