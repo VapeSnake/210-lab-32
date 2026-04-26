@@ -53,7 +53,15 @@ int main()
             }
             else // 15% chance car switches to a different lane.
             {
-
+                int switchLane = rand() % MAX_LANES; // Randomly select a lane from 1 to 4 for the car to switch to.
+                while (switchLane == i || Lanes[i].empty())
+                { // This loop ensures that car doesn't switch to same lane and checks if current lane has cars to be able to switch lanes.
+                    switchLane = rand() % MAX_LANES; // Changes switchLane to new random lane until a switch is available.
+                }
+                cout << "Lane: " << i + 1 << " Switched: "; // Print which lane a car switched from.
+                cout << "   ";                Lanes[i].front().print(); // Print the car that is about to switch lanes.
+                Lanes[switchLane].push_back(Lanes[i].front()); // Add the car that is switching to the back of the new lane.
+                Lanes[i].pop_front(); // Remove the car from the original lane as it has switched to a new lane.
             }
         }
         for (int i = 0; i < MAX_LANES; i++)
