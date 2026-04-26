@@ -34,21 +34,26 @@ int main()
     {                                       // Loop repeats 20 times.
         cout << "\nTime: " << time << "\n"; // Print the current time period at the start of each loop iteration.
         // First For loop will handle 50/50 chance car leaves. Second For loop will display queues of each lane.
+        int randomNum = rand() % 100; // Generate a random number between 0 and 99 to determine if a car joins, leaves, or switches lanes.
         for (int i = 0; i < MAX_LANES; i++)
         {
-            if (rand() % 2 == 0)
-            {                                            // 50% chance car joins.
+            if (randomNum < 49) // 49% chance car joins.
+            {
                 Lanes[i].push_back(Car());               // Adds new car to back of lane.
                 cout << "Lane " << i + 1 << " Joined: "; // Print which lane a car joined.
                 cout << "   ";
                 Lanes[i].back().print(); // Print the car that just joined the lane.
             }
-            else if (!Lanes[i].empty())
-            {                                          // 50% chance car leaves, but only if lane is not empty.
+            else if ((randomNum < 46 + 39) && !Lanes[i].empty()) // 39% chance car leaves if lane has cars.
+            {
                 cout << "Lane " << i + 1 << " Paid: "; // Print which lane a car paid and left.
                 cout << "   ";
                 Lanes[i].front().print(); // Print the car that is about to leave the lane.
                 Lanes[i].pop_front();     // Remove the first car from the lane as it has been processed.
+            }
+            else // 15% chance car switches to a different lane.
+            {
+
             }
         }
         for (int i = 0; i < MAX_LANES; i++)
@@ -72,26 +77,3 @@ int main()
         time++; // Increment time after all lanes have had a chance to add a car.
     }
 }
-
-/*
-int time = 1; // Time counter to simulate time periods at toll booth.
-while (!Cars.empty()) { // Loop continues until the toll has no cars left in line using .empty() method.
-    if (rand() % 100 < 55) { // 55% chance new car arrives at toll booth A.K.A push_back() new car object.
-        Cars.push_back(Car());
-        cout << "Time: " << time << " Operation: Car joined lane: ";
-        Cars.back().print(); // Peek at last car added.
-        for (auto & car: Cars) {
-            car.print(); // Print the current state of the queue after a new car joins.
-        }
-        time++;
-    } else { // 45% chance a car is processed and leaves the toll booth A.K.A pop_front() first car in line.
-        cout << "Time: " << time << " Operation: Car paid: ";
-        Cars.front().print(); // Peek at first car in line that is about to leave.
-        Cars.pop_front(); // Remove the first car from the deque as it has been processed.
-        for (auto & car: Cars) {
-            car.print(); // Print the current state of the queue after a car leaves.
-        }
-        time++; // Increment time after each operation to simulate the passage of time at the toll booth.
-    }
-}
-    */
