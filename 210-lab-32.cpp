@@ -72,7 +72,7 @@ int main()
         time++; // Increment time after all lanes have had a chance to add a car.
     }
 }
-
+/
 /*
 int time = 1; // Time counter to simulate time periods at toll booth.
 while (!Cars.empty()) { // Loop continues until the toll has no cars left in line using .empty() method.
