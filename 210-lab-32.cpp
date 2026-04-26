@@ -27,7 +27,7 @@ int main() {
     // Milestone 4: Only coding 50/50 probability of car joining/leaving for all lanes.
     int time = 1; // Time counter to compare to MAX_PERIODS.
     while (time <= MAX_PERIODS) { // Loop repeats 20 times.
-        cout << "Time: " << time << "\n"; // Print the current time period at the start of each loop iteration.
+        cout << "\nTime: " << time << "\n"; // Print the current time period at the start of each loop iteration.
         for (int i = 0; i < MAX_LANES; i++) { // Outer loop iterates through each lane.
             if (rand() % 2 == 0) { // 50% chance to test if car joins lane.
                 Lanes[i].push_back(Car()); // Add a new car to the back of the current lane.
@@ -35,6 +35,7 @@ int main() {
                 Lanes[i].back().print(); // Peek at the last car added to the lane.
                 cout << "Lane " << i + 1 << " Queue:\n"; // Print the current state of the lane after a new car joins.
                 for (auto & car: Lanes[i]) {
+                    cout << "  ";
                     car.print(); // Print each car in the lane.
                 }
             } else if (!Lanes[i].empty()) { // 50% chance car pays and leaves the lane.
@@ -43,12 +44,14 @@ int main() {
                 Lanes[i].pop_front(); // Remove the first car from the lane as it has been processed.
                 cout << "Lane " << i + 1 << " Queue:\n"; // Print the current state of the lane after a car leaves.
                     for (auto & car: Lanes[i]) {
+                        cout << "  ";
                         car.print(); // Print each car in the lane.
                     }
                 } else {
                     cout << "Lane " << i + 1 << " Queue: empty\n"; // If lane is empty, print message indicating no cars to process.
                 }
             }
+        time++; // Increment time after processing all lanes to simulate the passage of time at the toll booth.
         }
     }
 
