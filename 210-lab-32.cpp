@@ -34,17 +34,17 @@ int main()
     {                                       // Loop repeats 20 times.
         cout << "\nTime: " << time << "\n"; // Print the current time period at the start of each loop iteration.
         // First For loop will handle 50/50 chance car leaves. Second For loop will display queues of each lane.
-        int randomNum = rand() % 100; // Generate a random number between 0 and 99 to determine if a car joins, leaves, or switches lanes.
         for (int i = 0; i < MAX_LANES; i++)
         {
-            if (randomNum < 49) // 49% chance car joins.
+            int randomNum = rand() % 100; // Generate a random number between 0 and 99 to determine if a car joins, leaves, or switches lanes.
+            if (randomNum < 46) // 46% chance car joins.
             {
                 Lanes[i].push_back(Car());               // Adds new car to back of lane.
                 cout << "Lane " << i + 1 << " Joined: "; // Print which lane a car joined.
                 cout << "   ";
                 Lanes[i].back().print(); // Print the car that just joined the lane.
             }
-            else if ((randomNum < 46 + 39) && !Lanes[i].empty()) // 39% chance car leaves if lane has cars.
+            else if ((randomNum < 85) && !Lanes[i].empty()) // 39% chance car leaves if lane has cars.
             {
                 cout << "Lane " << i + 1 << " Paid: "; // Print which lane a car paid and left.
                 cout << "   ";
@@ -54,7 +54,7 @@ int main()
             else // 15% chance car switches to a different lane.
             {
                 int switchLane = rand() % MAX_LANES; // Randomly select a lane from 1 to 4 for the car to switch to.
-                while (switchLane == i || Lanes[i].empty())
+                while (switchLane == i || Lanes[i].empty()) //BUG: Infinite loop if lane is empty.
                 { // This loop ensures that car doesn't switch to same lane and checks if current lane has cars to be able to switch lanes.
                     switchLane = rand() % MAX_LANES; // Changes switchLane to new random lane until a switch is available.
                 }
