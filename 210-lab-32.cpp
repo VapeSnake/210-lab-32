@@ -25,7 +25,32 @@ int main() {
     }
     cout << endl;
     cout << "--- TESTING DEQUE OPERATIONS ---\n";
-    cout << ""
+    cout << "Peeking at the front and back of lane 1:\n";
+    Lanes[0].front().print(); // Peek at the first car in lane 1.
+    cout << "Peeking at the back of lane 1:\n";
+    Lanes[0].back().print(); // Peek at the last car in lane
+    cout << "Adding a new car to lane 1:\n";
+    Lanes[0].push_back(Car()); // Add a new car to the back of lane 1.
+    for (auto & car: Lanes[0]) {
+        car.print(); // Print the current state of lane 1 after adding a new car.
+    }
+    cout << "Processing a car from lane 1:\n";
+    Lanes[0].pop_front(); // Remove the first car from lane 1 as it has been processed.
+    for (auto & car: Lanes[0]) {
+        car.print(); // Print the current state of lane 1 after processing a car.
+    }
+    cout << endl;
+    cout << "ADDING CARS TO EACH LANE" << endl;
+    for (int i = 0; i < MAX_LANES; i++) {
+        Lanes[i].push_back(Car()); // Add a new car to the back of each lane.
+        cout << "Added a new car to lane " << i + 1 << ":\n";
+        for (auto & car: Lanes[i]) {
+            car.print(); // Print the current state of each lane after adding a new car.
+        }
+    }
+    cout << endl;
+    cout << "PROCESSING CARS FROM EACH LANE" << endl;
+    for (int i = 0; i < MAX_LANES; i++) {
 
     /*
     int time = 1; // Time counter to simulate time periods at toll booth.
