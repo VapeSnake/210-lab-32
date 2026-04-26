@@ -51,7 +51,14 @@ int main() {
     cout << endl;
     cout << "PROCESSING CARS FROM EACH LANE" << endl;
     for (int i = 0; i < MAX_LANES; i++) {
-
+        cout << "Processing a car from lane " << i + 1 << ":\n";
+        Lanes[i].pop_front(); // Remove the first car from each lane as it has been processed.
+        for (auto & car: Lanes[i]) {
+            car.print(); // Print the current state of each lane after processing a car.
+        }
+    }
+    cout << endl;
+    
     /*
     int time = 1; // Time counter to simulate time periods at toll booth.
     while (!Cars.empty()) { // Loop continues until the toll has no cars left in line using .empty() method.
