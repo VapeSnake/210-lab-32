@@ -40,4 +40,4 @@ int main() {
             time++; // Increment time after each operation to simulate the passage of time at the toll booth.
         }
     }
-}
+}/
